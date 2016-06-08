@@ -1,7 +1,7 @@
 package soul_language;
 
-import antlrv4_generator.ArrayInitBaseVisitor;
-import antlrv4_generator.ArrayInitParser;
+import antlrv4_generator_calculator.ArrayInitBaseVisitor;
+import antlrv4_generator_calculator.ArrayInitParser;
 
 import java.util.HashMap;
 import java.util.Map;

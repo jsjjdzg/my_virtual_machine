@@ -1,4 +1,4 @@
-package antlrv4_generator;// Generated from D:/workspace/soul_virtual_machine\ArrayInit.g4 by ANTLR 4.5.1
+package antlrv4_generator_calculator;// Generated from D:/workspace/soul_virtual_machine\ArrayInit.g4 by ANTLR 4.5.1
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;

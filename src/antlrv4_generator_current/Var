@@ -1,0 +1,12 @@
+
+
+void g() {
+    int x = 0;
+    float y;
+    y = 9;
+    f(x,y);
+}
+
+int f(int x, float y) {
+    return x + y;
+}

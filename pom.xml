@@ -30,5 +30,17 @@
 			<artifactId>antlr4</artifactId>
 			<version>4.5</version>
 		</dependency>
+		<!-- http://mvnrepository.com/artifact/org.antlr/stringtemplate -->
+		<dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>stringtemplate</artifactId>
+			<version>3.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8</version>
+		</dependency>
 	</dependencies>
 </project>
