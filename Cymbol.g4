@@ -1,84 +1,68 @@
-/** Simple statically-typed programming language with functions and variables
- *  taken from "Language Implementation Patterns" book.
- */
 grammar Cymbol;
 
-file:   (functionDecl | varDecl)+ ;
+prog:   funDecl+//函数
+;
 
-varDecl
-    :   type ID ('=' expr)? ';'
-    ;
-type:   'float' | 'int' | 'void' ; // user-defined types
-
-functionDecl
-    :   type ID '(' formalParameters? ')' block // "void f(int x) {...}"
+funDecl
+    :   funName=ID '('parameterList')' funBlock=block
     ;
 
-formalParameters
-    :   formalParameter (',' formalParameter)*
-    ;
-formalParameter
-    :   type ID
+parameterList
+    :   (parameter(',' parameter)*)?
     ;
 
-block:  '{' stat* '}' ;   // possibly empty statement block
-
-stat:   block
-    |   varDecl
-    |   'if' expr 'then' stat ('else' stat)?
-    |   'return' expr? ';'
-    |   expr '=' expr ';' // assignment
-    |   expr ';'          // func call
+parameter
+    :   ID
     ;
 
-/* expr below becomes the following non-left recursive rule:
-expr[int _p]
-    :   ( '-' expr[6]
-        | '!' expr[5]
-        | ID
-        | INT
-        | '(' expr ')'
-        )
-        ( {8 >= $_p}? '*' expr[9]
-        | {7 >= $_p}? ('+'|'-') expr[8]
-        | {4 >= $_p}? '==' expr[5]
-        | {10 >= $_p}? '[' expr ']'
-        | {9 >= $_p}? '(' exprList? ')'
-        )*
-    ;
-*/
+block:  '{' stmtList '}' ;   // possibly empty statement block
 
-expr:   ID '(' exprList? ')'    # Call
-    |   expr '[' expr ']'       # Index
+stmtList
+    :   stmt*
+    ;
+
+stmt
+    : RETURN expr ';'
+	| ifStmt
+    | expr ';'
+    //	| WHILE '(' expr ')' stmt
+    //	| 'do' stmt WHILE '(' expr ')'
+    //	| 'for' '(' ini=expr ';' tes=expr ';' inc=expr ')'
+    //	| block
+    ;
+
+ifStmt
+    : IF '(' expr ')' case1=stmt 'else' case2=stmt
+	| IF '(' expr ')' case1=stmt
+;
+expr
+    :   ID '=' expr             #Assign
+    |   ID '(' exprList ')'    # Call
+//    |   expr '[' expr ']'       # Index
     |   op=NEG expr                # Negate
     |   op=NOT expr                # Not
     |   expr op=(MUL|DIV) expr           # MulDiv
     |   expr op=(ADD|SUB) expr     # AddSub
     |   expr op='==' expr          # Equal
     |   ID                      # Var
-    |   INT                     # Int
-    |   '(' expr ')'            # Parens
+    |   NUMBER                     # Number
     ;
 
-exprList : expr (',' expr)* ;   // arg list
+exprList : (expr (',' expr)*)? ;   // arg list
 
-K_FLOAT : 'float';
-K_INT   : 'int';
-K_VOID  : 'void';
-ID  :   LETTER (LETTER | [0-9])* ;
-fragment
-LETTER : [a-zA-Z] ;
 
-INT :   [0-9]+ ;
-
-WS  :   [ \t\n\r]+ -> skip ;
-
-SL_COMMENT
-    :   '//' .*? '\n' -> skip
-    ;
 MUL:'*';
 DIV:'/';
 ADD:'+';
 SUB:'-';
 NEG:'-';
 NOT:'!';
+IF : 'if' ;
+RETURN : 'return' ;
+
+ID  :  ('a'..'z' |'A'..'Z' )('a'..'z' |'A'..'Z'|'0'..'9')* ;
+NUMBER :   [0-9]+ ;
+WS  :   [ \t\n\r]+ -> skip ;
+SL_COMMENT
+    :   '//' .*? '\n' -> skip
+    ;

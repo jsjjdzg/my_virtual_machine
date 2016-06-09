@@ -1,5 +1,5 @@
 // Generated from D:/workspace/soul_virtual_machine\Cymbol.g4 by ANTLR 4.5.1
-package antlrv4_generator_current;
+package vm;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -16,76 +16,49 @@ public class CymbolBaseListener implements CymbolListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFile(CymbolParser.FileContext ctx) { }
+	@Override public void enterProg(CymbolParser.ProgContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFile(CymbolParser.FileContext ctx) { }
+	@Override public void exitProg(CymbolParser.ProgContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVarDecl(CymbolParser.VarDeclContext ctx) {
-	}
+	@Override public void enterFunDecl(CymbolParser.FunDeclContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVarDecl(CymbolParser.VarDeclContext ctx) { }
+	@Override public void exitFunDecl(CymbolParser.FunDeclContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterType(CymbolParser.TypeContext ctx) { }
+	@Override public void enterParameterList(CymbolParser.ParameterListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitType(CymbolParser.TypeContext ctx) { }
+	@Override public void exitParameterList(CymbolParser.ParameterListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunctionDecl(CymbolParser.FunctionDeclContext ctx) {
-		System.out.println(ctx.ID().getText());
-	}
+	@Override public void enterParameter(CymbolParser.ParameterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunctionDecl(CymbolParser.FunctionDeclContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFormalParameters(CymbolParser.FormalParametersContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFormalParameters(CymbolParser.FormalParametersContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFormalParameter(CymbolParser.FormalParameterContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFormalParameter(CymbolParser.FormalParameterContext ctx) { }
+	@Override public void exitParameter(CymbolParser.ParameterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -103,35 +76,49 @@ public class CymbolBaseListener implements CymbolListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStat(CymbolParser.StatContext ctx) { }
+	@Override public void enterStmtList(CymbolParser.StmtListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStat(CymbolParser.StatContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterCall(CymbolParser.CallContext ctx) {
-		CymbolParser.ExprListContext exprList = ctx.exprList();
-		int paramNum = 0;
-		if(exprList != null){
-			paramNum = (exprList.getChildCount() + 1) / 2;
-		}
-		System.out.println("call " +ctx.ID().getText() + " " + paramNum);
-	}
+	@Override public void exitStmtList(CymbolParser.StmtListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCall(CymbolParser.CallContext ctx) {
-
-	}
+	@Override public void enterStmt(CymbolParser.StmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStmt(CymbolParser.StmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIfStmt(CymbolParser.IfStmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIfStmt(CymbolParser.IfStmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCall(CymbolParser.CallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCall(CymbolParser.CallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -149,6 +136,18 @@ public class CymbolBaseListener implements CymbolListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterNumber(CymbolParser.NumberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNumber(CymbolParser.NumberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterMulDiv(CymbolParser.MulDivContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -161,17 +160,13 @@ public class CymbolBaseListener implements CymbolListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAddSub(CymbolParser.AddSubContext ctx) {
-		System.out.println(CymbolParser.VOCABULARY.getSymbolicName(ctx.op.getType()));
-	}
+	@Override public void enterAddSub(CymbolParser.AddSubContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAddSub(CymbolParser.AddSubContext ctx) {
-
-	}
+	@Override public void exitAddSub(CymbolParser.AddSubContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -201,25 +196,13 @@ public class CymbolBaseListener implements CymbolListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParens(CymbolParser.ParensContext ctx) { }
+	@Override public void enterAssign(CymbolParser.AssignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParens(CymbolParser.ParensContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterIndex(CymbolParser.IndexContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitIndex(CymbolParser.IndexContext ctx) { }
+	@Override public void exitAssign(CymbolParser.AssignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -232,20 +215,6 @@ public class CymbolBaseListener implements CymbolListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitNegate(CymbolParser.NegateContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterInt(CymbolParser.IntContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitInt(CymbolParser.IntContext ctx) {
-        System.out.println(ctx.getText());
-    }
 	/**
 	 * {@inheritDoc}
 	 *

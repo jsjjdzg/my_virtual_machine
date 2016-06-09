@@ -1,5 +1,5 @@
 // Generated from D:/workspace/soul_virtual_machine\Cymbol.g4 by ANTLR 4.5.1
-package antlrv4_generator_current;
+package vm;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -8,65 +8,45 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface CymbolListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link CymbolParser#file}.
+	 * Enter a parse tree produced by {@link CymbolParser#prog}.
 	 * @param ctx the parse tree
 	 */
-	void enterFile(CymbolParser.FileContext ctx);
+	void enterProg(CymbolParser.ProgContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CymbolParser#file}.
+	 * Exit a parse tree produced by {@link CymbolParser#prog}.
 	 * @param ctx the parse tree
 	 */
-	void exitFile(CymbolParser.FileContext ctx);
+	void exitProg(CymbolParser.ProgContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CymbolParser#varDecl}.
+	 * Enter a parse tree produced by {@link CymbolParser#funDecl}.
 	 * @param ctx the parse tree
 	 */
-	void enterVarDecl(CymbolParser.VarDeclContext ctx);
+	void enterFunDecl(CymbolParser.FunDeclContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CymbolParser#varDecl}.
+	 * Exit a parse tree produced by {@link CymbolParser#funDecl}.
 	 * @param ctx the parse tree
 	 */
-	void exitVarDecl(CymbolParser.VarDeclContext ctx);
+	void exitFunDecl(CymbolParser.FunDeclContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CymbolParser#type}.
+	 * Enter a parse tree produced by {@link CymbolParser#parameterList}.
 	 * @param ctx the parse tree
 	 */
-	void enterType(CymbolParser.TypeContext ctx);
+	void enterParameterList(CymbolParser.ParameterListContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CymbolParser#type}.
+	 * Exit a parse tree produced by {@link CymbolParser#parameterList}.
 	 * @param ctx the parse tree
 	 */
-	void exitType(CymbolParser.TypeContext ctx);
+	void exitParameterList(CymbolParser.ParameterListContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CymbolParser#functionDecl}.
+	 * Enter a parse tree produced by {@link CymbolParser#parameter}.
 	 * @param ctx the parse tree
 	 */
-	void enterFunctionDecl(CymbolParser.FunctionDeclContext ctx);
+	void enterParameter(CymbolParser.ParameterContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CymbolParser#functionDecl}.
+	 * Exit a parse tree produced by {@link CymbolParser#parameter}.
 	 * @param ctx the parse tree
 	 */
-	void exitFunctionDecl(CymbolParser.FunctionDeclContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CymbolParser#formalParameters}.
-	 * @param ctx the parse tree
-	 */
-	void enterFormalParameters(CymbolParser.FormalParametersContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CymbolParser#formalParameters}.
-	 * @param ctx the parse tree
-	 */
-	void exitFormalParameters(CymbolParser.FormalParametersContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CymbolParser#formalParameter}.
-	 * @param ctx the parse tree
-	 */
-	void enterFormalParameter(CymbolParser.FormalParameterContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CymbolParser#formalParameter}.
-	 * @param ctx the parse tree
-	 */
-	void exitFormalParameter(CymbolParser.FormalParameterContext ctx);
+	void exitParameter(CymbolParser.ParameterContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CymbolParser#block}.
 	 * @param ctx the parse tree
@@ -78,15 +58,35 @@ public interface CymbolListener extends ParseTreeListener {
 	 */
 	void exitBlock(CymbolParser.BlockContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CymbolParser#stat}.
+	 * Enter a parse tree produced by {@link CymbolParser#stmtList}.
 	 * @param ctx the parse tree
 	 */
-	void enterStat(CymbolParser.StatContext ctx);
+	void enterStmtList(CymbolParser.StmtListContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CymbolParser#stat}.
+	 * Exit a parse tree produced by {@link CymbolParser#stmtList}.
 	 * @param ctx the parse tree
 	 */
-	void exitStat(CymbolParser.StatContext ctx);
+	void exitStmtList(CymbolParser.StmtListContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CymbolParser#stmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterStmt(CymbolParser.StmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CymbolParser#stmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitStmt(CymbolParser.StmtContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CymbolParser#ifStmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfStmt(CymbolParser.IfStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CymbolParser#ifStmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfStmt(CymbolParser.IfStmtContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Call}
 	 * labeled alternative in {@link CymbolParser#expr}.
@@ -111,6 +111,18 @@ public interface CymbolListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNot(CymbolParser.NotContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Number}
+	 * labeled alternative in {@link CymbolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumber(CymbolParser.NumberContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Number}
+	 * labeled alternative in {@link CymbolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumber(CymbolParser.NumberContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code MulDiv}
 	 * labeled alternative in {@link CymbolParser#expr}.
@@ -160,29 +172,17 @@ public interface CymbolListener extends ParseTreeListener {
 	 */
 	void exitVar(CymbolParser.VarContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Parens}
+	 * Enter a parse tree produced by the {@code Assign}
 	 * labeled alternative in {@link CymbolParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterParens(CymbolParser.ParensContext ctx);
+	void enterAssign(CymbolParser.AssignContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Parens}
+	 * Exit a parse tree produced by the {@code Assign}
 	 * labeled alternative in {@link CymbolParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitParens(CymbolParser.ParensContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code Index}
-	 * labeled alternative in {@link CymbolParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterIndex(CymbolParser.IndexContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Index}
-	 * labeled alternative in {@link CymbolParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitIndex(CymbolParser.IndexContext ctx);
+	void exitAssign(CymbolParser.AssignContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Negate}
 	 * labeled alternative in {@link CymbolParser#expr}.
@@ -195,18 +195,6 @@ public interface CymbolListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNegate(CymbolParser.NegateContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code Int}
-	 * labeled alternative in {@link CymbolParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterInt(CymbolParser.IntContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Int}
-	 * labeled alternative in {@link CymbolParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitInt(CymbolParser.IntContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CymbolParser#exprList}.
 	 * @param ctx the parse tree

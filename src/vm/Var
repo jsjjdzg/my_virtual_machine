@@ -1,0 +1,5 @@
+main(){
+c=1;
+b=2;
+return c+b;
+}
