@@ -12,14 +12,15 @@ public class BinaryAdd {
     int[] x1 = {0, 1, 1, 0, 1, 1, 0, 1};
     int[] x2 = {1, 0, 1, 0, 1, 1, 0, 1};
     List<Integer> x3 = new ArrayList<>();
+
     @Test
-    public void add(){
+    public void add() {
         int index = x1.length - 1;
-        while(index > -1){
+        while (index > -1) {
             cal(index);
             index--;
         }
-        for(int i = x3.size()-1; i > -1; i--){
+        for (int i = x3.size() - 1; i > -1; i--) {
             System.out.print(x3.get(i));
         }
     }
@@ -31,12 +32,12 @@ public class BinaryAdd {
         int temp2 = x2[i];
         if (temp1 + temp2 > 1) {
             x3.add(temp1 + temp2 - 2);
-            if(index == 0){
+            if (index == 0) {
                 x3.add(1);
                 return;
             }
-            x1[i-1]++;
-        }else{
+            x1[i - 1]++;
+        } else {
             x3.add(temp1 + temp2);
         }
     }
