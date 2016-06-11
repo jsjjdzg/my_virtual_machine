@@ -1,4 +1,4 @@
-package chapter2;
+package clrs;
 
 import org.junit.Test;
 
