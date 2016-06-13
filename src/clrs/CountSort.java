@@ -20,7 +20,7 @@ public class CountSort {
         }
     }
 
-    private void countSort(int[] sort){
+    public void countSort(int[] sort){
         // how many
         for(int i = 0; i < sort.length; i++){
             c[sort[i]] += 1;
@@ -30,8 +30,8 @@ public class CountSort {
             c[i] = c[i] + c[i-1];
         }
         for(int i = 0; i < a.length; i++){
-            b[c[a[i]]] = a[i];
-            c[a[i]] -= 1;
+            b[c[sort[i]]] = sort[i];
+            c[sort[i]] -= 1;
         }
     }
 }
