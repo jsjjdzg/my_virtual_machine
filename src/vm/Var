@@ -2,6 +2,8 @@ main(){
 b=11;
 c=21;
 if(b<c)
-    b=10;
+    b=2;
+else
+    b=1;
 return b+c;
 }

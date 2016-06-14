@@ -76,11 +76,24 @@ public class MyCompiler extends CymbolBaseVisitor {
 
     @Override
     public Object visitIfStmt(CymbolParser.IfStmtContext ctx) {
-        visit(ctx.expr());//计算if（）中表达式
-        Instruction in = new Instruction(seqNum++, "jz");//是否要进去if体
-        addInstruction(in);
-        visit(ctx.case1);
-        in.setOprand1(seqNum + "");//if false 就 跳过{}
+        //if() ……;
+        if(ctx.case2 == null){
+            visit(ctx.expr());//计算if（）中表达式
+            Instruction in = new Instruction(seqNum++, "jz");//是否要进去if体
+            addInstruction(in);
+            visit(ctx.case1);
+            in.setOprand1(seqNum + "");//if false 就 跳过{}
+        }else{ //if() ……; else ……;
+            visit(ctx.expr());//计算if（）中表达式
+            Instruction in = new Instruction(seqNum++, "jz");
+            addInstruction(in);
+            visit(ctx.case1);
+            Instruction in2 = new Instruction(seqNum++, "jmp");
+            addInstruction(in2);//执行完if()... 跳过else()...
+            in.setOprand1(seqNum + "");//如果false 就跳过if()... 进入 else()...
+            visit(ctx.case2);
+            in2.setOprand1(seqNum+"");
+        }
         return null;
     }
 
@@ -169,4 +182,5 @@ public class MyCompiler extends CymbolBaseVisitor {
         }
         return null;
     }
+
 }
