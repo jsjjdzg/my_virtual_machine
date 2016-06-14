@@ -1,0 +1,24 @@
+max
+0 rem beginIf    
+1 ldv t0    
+2 ldv t1    
+3 gt     
+4 jz 8    
+5 ldv t0    
+6 ret     
+7 jmp 8    
+8 rem endIf    
+9 ldv t1    
+10 ret     
+
+main
+0 ldc 1    
+1 dup     
+2 asn t0    
+3 dup     
+4 asn t1    
+5 asn t2    
+6 ldv t3    
+7 ldv t4    
+8 call max 2   
+9 halt     

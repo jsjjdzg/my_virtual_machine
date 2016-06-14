@@ -33,8 +33,8 @@ public class MergeSort {
         int length1 = 0;
         int length2 = 0;
         if (length % 2 != 0) {//奇数
-            length1 = length / 2 + 1;// + 1 add mark at the end
-            length2 = length / 2 + 1 + 1;// + 1 add mark at the end
+            length1 = length / 2 + 1;// + vm01 add mark at the end
+            length2 = length / 2 + 1 + 1;// + vm01 add mark at the end
         } else {
             length1 = length2 = length / 2 + 1;
         }

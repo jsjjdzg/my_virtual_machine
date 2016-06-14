@@ -1,0 +1,10 @@
+max(a, b){
+	if(a>b) return a ; 
+	return b;
+}
+
+main(){
+ x = y = 0;
+ y = y + 1 ;
+ return max(x, y);
+}

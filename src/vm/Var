@@ -1,5 +1,0 @@
-main(){
-c=11;
-b=21;
-return c+b;
-}

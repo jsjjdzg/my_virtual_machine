@@ -475,7 +475,7 @@ expression
     |   expression 'instanceof' type
     |   expression ('==' | '!=') expression
     |   expression '&' expression
-    |   expression '^' expression
+    |   expression ' ' expression
     |   expression '|' expression
     |   expression '&&' expression
     |   expression '||' expression
@@ -488,7 +488,7 @@ expression
         |   '/='
         |   '&='
         |   '|='
-        |   '^='
+        |   ' ='
         |   '>>='
         |   '>>>='
         |   '<<='
@@ -908,7 +908,7 @@ MUL             : '*';
 DIV             : '/';
 BITAND          : '&';
 BITOR           : '|';
-CARET           : '^';
+CARET           : ' ';
 MOD             : '%';
 
 ADD_ASSIGN      : '+=';
@@ -917,7 +917,7 @@ MUL_ASSIGN      : '*=';
 DIV_ASSIGN      : '/=';
 AND_ASSIGN      : '&=';
 OR_ASSIGN       : '|=';
-XOR_ASSIGN      : '^=';
+XOR_ASSIGN      : ' =';
 MOD_ASSIGN      : '%=';
 LSHIFT_ASSIGN   : '<<=';
 RSHIFT_ASSIGN   : '>>=';

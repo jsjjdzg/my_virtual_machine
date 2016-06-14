@@ -1,0 +1,27 @@
+sum
+0 ldc 0    
+1 asn t1    
+2 rem beginWhile    
+3 ldv t0    
+4 ldc 0    
+5 gt     
+6 jz 16    
+7 ldv t1    
+8 ldv t0    
+9 add     
+10 asn t1    
+11 ldv t0    
+12 ldc 1    
+13 sub     
+14 asn t0    
+15 jmp 3    
+16 rem endWhile    
+17 ldv t1    
+18 ret     
+
+main
+0 ldv t0    
+1 call sum 1   
+2 asn t1    
+3 ldv t1    
+4 halt
