@@ -2,7 +2,6 @@ package vm;
 
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.*;
 import java.util.List;
@@ -21,12 +20,11 @@ public class main {
         };
 
         for (String s : tests) {
-            ParseTreeWalker walker = new ParseTreeWalker();
             CymbolLexer lexer = new CymbolLexer(new ANTLRFileStream(s));
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             CymbolParser parser = new CymbolParser(tokens);
             MyCompiler compiler = new MyCompiler();
-            walker.walk(compiler, parser.prog());
+            compiler.visit(parser.prog());
 
             //print compile result
             Map<String, List<Instruction>> functionMap = compiler.getFunctionMap();

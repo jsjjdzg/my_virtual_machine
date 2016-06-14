@@ -41,6 +41,7 @@ expr
 //    |   expr '[' expr ']'       # Index
     |   op=NEG expr                # Negate
     |   op=NOT expr                # Not
+    |   expr op=(GT|LT) expr                # GtLt
     |   expr op=(MUL|DIV) expr           # MulDiv
     |   expr op=(ADD|SUB) expr     # AddSub
     |   expr op='==' expr          # Equal
@@ -58,6 +59,8 @@ SUB:'-';
 NEG:'-';
 NOT:'!';
 IF : 'if' ;
+GT : '>';
+LT : '<';
 RETURN : 'return' ;
 
 ID  :  ('a'..'z' |'A'..'Z' )('a'..'z' |'A'..'Z'|'0'..'9')* ;

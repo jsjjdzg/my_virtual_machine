@@ -1,5 +1,7 @@
 main(){
-c=11;
-b=21;
-return c+b;
+b=11;
+c=21;
+if(b<c)
+    b=10;
+return b+c;
 }

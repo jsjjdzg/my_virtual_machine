@@ -172,6 +172,18 @@ public interface CymbolListener extends ParseTreeListener {
 	 */
 	void exitVar(CymbolParser.VarContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code GtLt}
+	 * labeled alternative in {@link CymbolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterGtLt(CymbolParser.GtLtContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code GtLt}
+	 * labeled alternative in {@link CymbolParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitGtLt(CymbolParser.GtLtContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code Assign}
 	 * labeled alternative in {@link CymbolParser#expr}.
 	 * @param ctx the parse tree

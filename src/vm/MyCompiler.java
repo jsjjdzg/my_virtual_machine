@@ -12,247 +12,161 @@ import java.util.Map;
 /**
  * Created by szj on 2016/6/8.
  */
-public class MyCompiler extends CymbolBaseListener {
+public class MyCompiler extends CymbolBaseVisitor {
     private int seqNum = 0;
     private int tempNum = 0;
     private int level = 0;
     private Map<String, String> paramRenameMap = new HashMap<>();
-    private String funName = null;
     private List<Instruction> insList = new ArrayList<>();
+    private Map<String, List<Instruction>> functionMap = new HashMap<>();
+    private String funName = null;
 
     private void addInstruction(Instruction inc) {
         insList.add(inc);
     }
-
-    private Map<String, List<Instruction>> functionMap = new HashMap<String, List<Instruction>>();
 
     public Map<String, List<Instruction>> getFunctionMap() {
         return this.functionMap;
     }
 
     @Override
-    public void enterProg(CymbolParser.ProgContext ctx) {
-        super.enterProg(ctx);
+    public Object visitProg(CymbolParser.ProgContext ctx) {
+        return super.visitProg(ctx);
     }
 
     @Override
-    public void exitProg(CymbolParser.ProgContext ctx) {
-        super.exitProg(ctx);
-    }
-
-    @Override
-    public void enterFunDecl(CymbolParser.FunDeclContext ctx) {
-        seqNum = 0;
-        tempNum = 0;
+    public Object visitFunDecl(CymbolParser.FunDeclContext ctx) {
         funName = ctx.ID().getText();
-        functionMap.put(ctx.ID().getText(), insList);
+        functionMap.put(funName, insList);
+        return super.visitFunDecl(ctx);
     }
 
     @Override
-    public void exitFunDecl(CymbolParser.FunDeclContext ctx) {
-        super.exitFunDecl(ctx);
+    public Object visitParameterList(CymbolParser.ParameterListContext ctx) {
+        return super.visitParameterList(ctx);
     }
 
     @Override
-    public void enterParameterList(CymbolParser.ParameterListContext ctx) {
-        super.enterParameterList(ctx);
+    public Object visitParameter(CymbolParser.ParameterContext ctx) {
+        return super.visitParameter(ctx);
     }
 
     @Override
-    public void exitParameterList(CymbolParser.ParameterListContext ctx) {
-        super.exitParameterList(ctx);
+    public Object visitBlock(CymbolParser.BlockContext ctx) {
+        return super.visitBlock(ctx);
     }
 
     @Override
-    public void enterParameter(CymbolParser.ParameterContext ctx) {
-//        addInstruction(new Instruction(seqNum++, ctx.getText()));
+    public Object visitStmtList(CymbolParser.StmtListContext ctx) {
+        return super.visitStmtList(ctx);
     }
 
     @Override
-    public void exitParameter(CymbolParser.ParameterContext ctx) {
-        super.exitParameter(ctx);
-    }
-
-    @Override
-    public void enterBlock(CymbolParser.BlockContext ctx) {
-        super.enterBlock(ctx);
-    }
-
-    @Override
-    public void exitBlock(CymbolParser.BlockContext ctx) {
-        super.exitBlock(ctx);
-    }
-
-    @Override
-    public void enterStmtList(CymbolParser.StmtListContext ctx) {
-        super.enterStmtList(ctx);
-    }
-
-    @Override
-    public void exitStmtList(CymbolParser.StmtListContext ctx) {
-        super.exitStmtList(ctx);
-    }
-
-    @Override
-    public void enterStmt(CymbolParser.StmtContext ctx) {
-        super.enterStmt(ctx);
-    }
-
-    @Override
-    public void exitStmt(CymbolParser.StmtContext ctx) {
-        if(ctx.RETURN() != null){
-            if(funName.equals("main")){
+    public Object visitStmt(CymbolParser.StmtContext ctx) {
+        super.visitStmt(ctx);
+        if (ctx.RETURN() != null) {
+            if (funName.equals("main")) {
                 addInstruction(new Instruction(seqNum++, "halt"));
-            }else {
-                addInstruction(new Instruction(seqNum++,"ret"));
+            } else {
+                addInstruction(new Instruction(seqNum++, "ret"));
             }
         }
+        return null;
     }
 
     @Override
-    public void enterIfStmt(CymbolParser.IfStmtContext ctx) {
-        super.enterIfStmt(ctx);
+    public Object visitIfStmt(CymbolParser.IfStmtContext ctx) {
+        visit(ctx.expr());//计算if（）中表达式
+        Instruction in = new Instruction(seqNum++, "jz");//是否要进去if体
+        addInstruction(in);
+        visit(ctx.case1);
+        in.setOprand1(seqNum + "");//if false 就 跳过{}
+        return null;
     }
 
     @Override
-    public void exitIfStmt(CymbolParser.IfStmtContext ctx) {
-        super.exitIfStmt(ctx);
+    public Object visitCall(CymbolParser.CallContext ctx) {
+        return super.visitCall(ctx);
     }
 
     @Override
-    public void enterCall(CymbolParser.CallContext ctx) {
-        super.enterCall(ctx);
+    public Object visitNot(CymbolParser.NotContext ctx) {
+        return super.visitNot(ctx);
     }
 
     @Override
-    public void exitCall(CymbolParser.CallContext ctx) {
-        super.exitCall(ctx);
-    }
-
-    @Override
-    public void enterNot(CymbolParser.NotContext ctx) {
-        super.enterNot(ctx);
-    }
-
-    @Override
-    public void exitNot(CymbolParser.NotContext ctx) {
-        super.exitNot(ctx);
-    }
-
-    @Override
-    public void enterNumber(CymbolParser.NumberContext ctx) {
-    }
-
-    @Override
-    public void exitNumber(CymbolParser.NumberContext ctx) {
+    public Object visitNumber(CymbolParser.NumberContext ctx) {
         addInstruction(new Instruction(seqNum++, "ldc", ctx.getText()));
+        return null;
     }
 
     @Override
-    public void enterMulDiv(CymbolParser.MulDivContext ctx) {
-        super.enterMulDiv(ctx);
+    public Object visitMulDiv(CymbolParser.MulDivContext ctx) {
+        return super.visitMulDiv(ctx);
     }
 
     @Override
-    public void exitMulDiv(CymbolParser.MulDivContext ctx) {
-        super.exitMulDiv(ctx);
-    }
-
-    @Override
-    public void enterAddSub(CymbolParser.AddSubContext ctx) {
-
-    }
-
-    @Override
-    public void exitAddSub(CymbolParser.AddSubContext ctx) {
-        if(ctx.op.getText().equalsIgnoreCase("+")){
+    public Object visitAddSub(CymbolParser.AddSubContext ctx) {
+        visit(ctx.expr(0));
+        visit(ctx.expr(1));
+        if (ctx.op.getText().equalsIgnoreCase("+")) {
             addInstruction(new Instruction(seqNum++, "add"));
+        } else {
+            addInstruction(new Instruction(seqNum++, "sub"));
         }
+        return null;
     }
 
     @Override
-    public void enterEqual(CymbolParser.EqualContext ctx) {
-        super.enterEqual(ctx);
+    public Object visitEqual(CymbolParser.EqualContext ctx) {
+        return super.visitEqual(ctx);
     }
 
     @Override
-    public void exitEqual(CymbolParser.EqualContext ctx) {
-        super.exitEqual(ctx);
-    }
-
-    @Override
-    public void enterVar(CymbolParser.VarContext ctx) {
-        super.enterVar(ctx);
-    }
-
-    @Override
-    public void exitVar(CymbolParser.VarContext ctx) {
+    public Object visitVar(CymbolParser.VarContext ctx) {
         String var = paramRenameMap.get(ctx.ID().getText());
-        if(var == null){
+        if (var == null) {
             String temp = "t" + tempNum++;
             paramRenameMap.put(ctx.ID().getText(), temp);
             var = temp;
         }
-        addInstruction(new Instruction(seqNum++,"ldv",var));
+        addInstruction(new Instruction(seqNum++, "ldv", var));
+        return null;
     }
 
     @Override
-    public void enterAssign(CymbolParser.AssignContext ctx) {
-        level++;
-    }
-
-    @Override
-    public void exitAssign(CymbolParser.AssignContext ctx) {
-        if(level > 1) {
-            addInstruction(new Instruction(seqNum++, "dup"));
-        }
+    public Object visitAssign(CymbolParser.AssignContext ctx) {
+        visit(ctx.ID());
+        visit(ctx.expr());
         String var = paramRenameMap.get(ctx.ID().getText());
         if (null == var) {
             String temp = "t" + tempNum++;
             paramRenameMap.put(ctx.ID().getText(), temp);
             var = temp;
-            addInstruction(new Instruction(seqNum++, "asn", var));
         }
-        level--;
+        addInstruction(new Instruction(seqNum++, "asn", var));
+        return null;
     }
 
     @Override
-    public void enterNegate(CymbolParser.NegateContext ctx) {
-        super.enterNegate(ctx);
+    public Object visitNegate(CymbolParser.NegateContext ctx) {
+        return super.visitNegate(ctx);
     }
 
     @Override
-    public void exitNegate(CymbolParser.NegateContext ctx) {
-        super.exitNegate(ctx);
+    public Object visitExprList(CymbolParser.ExprListContext ctx) {
+        return super.visitExprList(ctx);
     }
 
     @Override
-    public void enterExprList(CymbolParser.ExprListContext ctx) {
-        super.enterExprList(ctx);
-    }
-
-    @Override
-    public void exitExprList(CymbolParser.ExprListContext ctx) {
-        super.exitExprList(ctx);
-    }
-
-    @Override
-    public void enterEveryRule(ParserRuleContext ctx) {
-        super.enterEveryRule(ctx);
-    }
-
-    @Override
-    public void exitEveryRule(ParserRuleContext ctx) {
-        super.exitEveryRule(ctx);
-    }
-
-    @Override
-    public void visitTerminal(TerminalNode node) {
-        super.visitTerminal(node);
-    }
-
-    @Override
-    public void visitErrorNode(ErrorNode node) {
-        super.visitErrorNode(node);
+    public Object visitGtLt(CymbolParser.GtLtContext ctx) {
+        visit(ctx.expr(0));
+        visit(ctx.expr(1));
+        if(ctx.op.getText().equals(">")){
+            addInstruction(new Instruction(seqNum++,"gt"));
+        }else {
+            addInstruction(new Instruction(seqNum++,"lt"));
+        }
+        return null;
     }
 }
